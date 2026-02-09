@@ -1,0 +1,619 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "977dd67c-a5f0-4acd-990c-348073965da1",
+   "metadata": {},
+   "source": [
+    "## PROBLEM 1 ##"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "6a900bc0-5efc-4841-8cb2-2025a4258531",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "c1 = 2.0 + 3.0i\n",
+      "c2 = 4.0 - 5.0i\n",
+      "c1 + c2 = 6.0 - 2.0i\n",
+      "c1 - c2 = -2.0 + 8.0i\n"
+     ]
+    }
+   ],
+   "source": [
+    "class Complex:\n",
+    "    def __init__(self, real=0.0, imag=0.0):\n",
+    "        self.real = float(real)\n",
+    "        self.imag = float(imag)\n",
+    "\n",
+    "    def __add__(self, other):\n",
+    "        if not isinstance(other, Complex):\n",
+    "            return NotImplemented\n",
+    "        return Complex(self.real + other.real, self.imag + other.imag)\n",
+    "\n",
+    "    def __sub__(self, other):\n",
+    "        if not isinstance(other, Complex):\n",
+    "            return NotImplemented\n",
+    "        return Complex(self.real - other.real, self.imag - other.imag)\n",
+    "\n",
+    "    def __repr__(self):\n",
+    "        sign = \"+\" if self.imag >= 0 else \"-\"\n",
+    "        return f\"{self.real} {sign} {abs(self.imag)}i\"\n",
+    "\n",
+    "\n",
+    "# Tests / prints\n",
+    "c1 = Complex(2, 3)\n",
+    "c2 = Complex(4, -5)\n",
+    "\n",
+    "print(\"c1 =\", c1)\n",
+    "print(\"c2 =\", c2)\n",
+    "print(\"c1 + c2 =\", c1 + c2)\n",
+    "print(\"c1 - c2 =\", c1 - c2)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "60d538a1-c6ff-44cc-8112-0c537a5384b6",
+   "metadata": {},
+   "source": [
+    "## PROBLEM 2 ##"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "7287abf4-4dfc-484b-8dca-9e3c869cc0e6",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "p1 = Person(name='Kenza', age=19, gender='F')\n",
+      "p2 = Person(name='Yassine', age=21, gender='M')\n",
+      "p1 > p2 ? False\n",
+      "p2 > p1 ? True\n"
+     ]
+    }
+   ],
+   "source": [
+    "class Person:\n",
+    "    def __init__(self, name, age, gender):\n",
+    "        self.name = name\n",
+    "        self.age = int(age)\n",
+    "        self.gender = gender\n",
+    "\n",
+    "    def __gt__(self, other):\n",
+    "        if not isinstance(other, Person):\n",
+    "            return NotImplemented\n",
+    "        return self.age > other.age\n",
+    "\n",
+    "    def __repr__(self):\n",
+    "        return f\"Person(name={self.name!r}, age={self.age}, gender={self.gender!r})\"\n",
+    "\n",
+    "\n",
+    "# Tests\n",
+    "p1 = Person(\"Kenza\", 19, \"F\")\n",
+    "p2 = Person(\"Yassine\", 21, \"M\")\n",
+    "\n",
+    "print(\"p1 =\", p1)\n",
+    "print(\"p2 =\", p2)\n",
+    "print(\"p1 > p2 ?\", p1 > p2)\n",
+    "print(\"p2 > p1 ?\", p2 > p1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9b9fd6c2-917e-4d59-b3b4-3854afc5fe4d",
+   "metadata": {},
+   "source": [
+    "## PROBLEM 4 ##"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "4de92e2b-a192-42f7-8a73-515ce3250aed",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "v1 = Vector(x=1.0, y=2.0, z=3.0)\n",
+      "v2 = Vector(x=4.0, y=-1.0, z=2.0)\n",
+      "v1 * v2 = 8.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "class Vector:\n",
+    "    def __init__(self, x, y, z):\n",
+    "        self.x = float(x)\n",
+    "        self.y = float(y)\n",
+    "        self.z = float(z)\n",
+    "\n",
+    "    def __mul__(self, other):\n",
+    "        if not isinstance(other, Vector):\n",
+    "            return NotImplemented\n",
+    "        return self.x * other.x + self.y * other.y + self.z * other.z\n",
+    "\n",
+    "    def __repr__(self):\n",
+    "        return f\"Vector(x={self.x}, y={self.y}, z={self.z})\"\n",
+    "\n",
+    "\n",
+    "# Tests \n",
+    "v1 = Vector(1, 2, 3)\n",
+    "v2 = Vector(4, -1, 2)\n",
+    "\n",
+    "print(\"v1 =\", v1)\n",
+    "print(\"v2 =\", v2)\n",
+    "print(\"v1 * v2 =\", v1 * v2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "72b078e8-214b-4603-b452-488832b26e56",
+   "metadata": {},
+   "source": [
+    "## PROBLEM 5 ##"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "827ad4a8-4fe2-452c-89eb-6718a4786d06",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "c1 = Circle(radius=3.0)  c2 = Circle(radius=5.0)  c3 = Circle(radius=3.0)\n",
+      "c1 < c2 : True\n",
+      "c1 <= c3: True\n",
+      "c2 > c1 : True\n",
+      "c2 >= c3: True\n",
+      "c1 == c3: True\n",
+      "c1 != c2: True\n"
+     ]
+    }
+   ],
+   "source": [
+    "class Circle:\n",
+    "    def __init__(self, radius):\n",
+    "        self.radius = float(radius)\n",
+    "\n",
+    "    def _key(self):\n",
+    "        return self.radius\n",
+    "\n",
+    "    def __lt__(self, other):\n",
+    "        if not isinstance(other, Circle):\n",
+    "            return NotImplemented\n",
+    "        return self._key() < other._key()\n",
+    "\n",
+    "    def __le__(self, other):\n",
+    "        if not isinstance(other, Circle):\n",
+    "            return NotImplemented\n",
+    "        return self._key() <= other._key()\n",
+    "\n",
+    "    def __gt__(self, other):\n",
+    "        if not isinstance(other, Circle):\n",
+    "            return NotImplemented\n",
+    "        return self._key() > other._key()\n",
+    "\n",
+    "    def __ge__(self, other):\n",
+    "        if not isinstance(other, Circle):\n",
+    "            return NotImplemented\n",
+    "        return self._key() >= other._key()\n",
+    "\n",
+    "    def __eq__(self, other):\n",
+    "        if not isinstance(other, Circle):\n",
+    "            return NotImplemented\n",
+    "        return self._key() == other._key()\n",
+    "\n",
+    "    def __ne__(self, other):\n",
+    "        if not isinstance(other, Circle):\n",
+    "            return NotImplemented\n",
+    "        return self._key() != other._key()\n",
+    "\n",
+    "    def __repr__(self):\n",
+    "        return f\"Circle(radius={self.radius})\"\n",
+    "\n",
+    "\n",
+    "# Tests\n",
+    "c1 = Circle(3)\n",
+    "c2 = Circle(5)\n",
+    "c3 = Circle(3)\n",
+    "\n",
+    "print(\"c1 =\", c1, \" c2 =\", c2, \" c3 =\", c3)\n",
+    "print(\"c1 < c2 :\", c1 < c2)\n",
+    "print(\"c1 <= c3:\", c1 <= c3)\n",
+    "print(\"c2 > c1 :\", c2 > c1)\n",
+    "print(\"c2 >= c3:\", c2 >= c3)\n",
+    "print(\"c1 == c3:\", c1 == c3)\n",
+    "print(\"c1 != c2:\", c1 != c2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c9f2ff07-5f30-462f-9969-e16c2cd6098a",
+   "metadata": {},
+   "source": [
+    "## PROBLEM 6 ##"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "94d65d32-d04b-4bf8-ae1b-fff691e085ea",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "p1 = Point2D(x=3.0, y=4.0, dist=5.000)\n",
+      "p2 = Point2D(x=1.0, y=1.0, dist=1.414)\n",
+      "p3 = Point2D(x=-3.0, y=-4.0, dist=5.000)\n",
+      "p2 < p1 : True\n",
+      "p1 == p3: True\n",
+      "p1 > p2 : True\n",
+      "p1 != p2: True\n"
+     ]
+    }
+   ],
+   "source": [
+    "import math\n",
+    "\n",
+    "class Point2D:\n",
+    "    def __init__(self, x, y):\n",
+    "        self.x = float(x)\n",
+    "        self.y = float(y)\n",
+    "\n",
+    "    def distance_from_origin(self):\n",
+    "        return math.sqrt(self.x**2 + self.y**2)\n",
+    "\n",
+    "    def __lt__(self, other):\n",
+    "        if not isinstance(other, Point2D):\n",
+    "            return NotImplemented\n",
+    "        return self.distance_from_origin() < other.distance_from_origin()\n",
+    "\n",
+    "    def __le__(self, other):\n",
+    "        if not isinstance(other, Point2D):\n",
+    "            return NotImplemented\n",
+    "        return self.distance_from_origin() <= other.distance_from_origin()\n",
+    "\n",
+    "    def __gt__(self, other):\n",
+    "        if not isinstance(other, Point2D):\n",
+    "            return NotImplemented\n",
+    "        return self.distance_from_origin() > other.distance_from_origin()\n",
+    "\n",
+    "    def __ge__(self, other):\n",
+    "        if not isinstance(other, Point2D):\n",
+    "            return NotImplemented\n",
+    "        return self.distance_from_origin() >= other.distance_from_origin()\n",
+    "\n",
+    "    def __eq__(self, other):\n",
+    "        if not isinstance(other, Point2D):\n",
+    "            return NotImplemented\n",
+    "        return self.distance_from_origin() == other.distance_from_origin()\n",
+    "\n",
+    "    def __ne__(self, other):\n",
+    "        if not isinstance(other, Point2D):\n",
+    "            return NotImplemented\n",
+    "        return self.distance_from_origin() != other.distance_from_origin()\n",
+    "\n",
+    "    def __repr__(self):\n",
+    "        d = self.distance_from_origin()\n",
+    "        return f\"Point2D(x={self.x}, y={self.y}, dist={d:.3f})\"\n",
+    "\n",
+    "\n",
+    "# Test\n",
+    "p1 = Point2D(3, 4)     # dist = 5\n",
+    "p2 = Point2D(1, 1)     # dist ~ 1.414\n",
+    "p3 = Point2D(-3, -4)   # dist = 5\n",
+    "\n",
+    "print(\"p1 =\", p1)\n",
+    "print(\"p2 =\", p2)\n",
+    "print(\"p3 =\", p3)\n",
+    "\n",
+    "print(\"p2 < p1 :\", p2 < p1)\n",
+    "print(\"p1 == p3:\", p1 == p3)\n",
+    "print(\"p1 > p2 :\", p1 > p2)\n",
+    "print(\"p1 != p2:\", p1 != p2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c2007a99-2e6a-44c8-9006-49956bbf4b93",
+   "metadata": {},
+   "source": [
+    "## PROBLEM 7 ##"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f8c2f84f-a8a3-49f2-9b5b-d66c68001d6b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Matrix:\n",
+    "    def __init__(self, data):\n",
+    "        # data: list of lists\n",
+    "        if not data or not all(isinstance(row, list) and row for row in data):\n",
+    "            raise ValueError(\"Matrix data must be a non-empty list of non-empty rows\")\n",
+    "\n",
+    "        row_len = len(data[0])\n",
+    "        if any(len(row) != row_len for row in data):\n",
+    "            raise ValueError(\"All rows must have the same length\")\n",
+    "\n",
+    "        # Convert to floats for safety\n",
+    "        self.data = [[float(x) for x in row] for row in data]\n",
+    "        self.rows = len(self.data)\n",
+    "        self.cols = len(self.data[0])\n",
+    "\n",
+    "    def __mul__(self, other):\n",
+    "        if not isinstance(other, Matrix):\n",
+    "            return NotImplemented\n",
+    "        if self.cols != other.rows:\n",
+    "            raise ValueError(f\"Incompatible sizes: {self.rows}x{self.cols} cannot multiply {other.rows}x{other.cols}\")\n",
+    "\n",
+    "        result = []\n",
+    "        for i in range(self.rows):\n",
+    "            row_result = []\n",
+    "            for j in range(other.cols):\n",
+    "                s = 0.0\n",
+    "                for k in range(self.cols):\n",
+    "                    s += self.data[i][k] * other.data[k][j]\n",
+    "                row_result.append(s)\n",
+    "            result.append(row_result)\n",
+    "\n",
+    "        return Matrix(result)\n",
+    "\n",
+    "    def __repr__(self):\n",
+    "        return \"Matrix(\" + \",\\n       \".join(str(row) for row in self.data) + \")\"\n",
+    "\n",
+    "\n",
+    "# Tests\n",
+    "A = Matrix([[1, 2, 3],\n",
+    "            [4, 5, 6]])\n",
+    "\n",
+    "B = Matrix([[7, 8],\n",
+    "            [9, 10],\n",
+    "            [11, 12]])\n",
+    "\n",
+    "print(\"A =\", A)\n",
+    "print(\"B =\", B)\n",
+    "print(\"A * B =\", A * B)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e295bcf6-d4b4-41ed-a3f9-cc575ae6942c",
+   "metadata": {},
+   "source": [
+    "## INHERITANCE ##"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "73c38665-7181-47e1-866d-b7bd644495c6",
+   "metadata": {},
+   "source": [
+    "### PROBLEM 1 ###"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "a9a62198-8d11-43d3-84a9-b9f0ec5737a5",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Driving a vehicle\n",
+      "Driving a car\n",
+      "Riding a bicycle\n"
+     ]
+    }
+   ],
+   "source": [
+    "class Vehicle:\n",
+    "    def drive(self):\n",
+    "        return \"Driving a vehicle\"\n",
+    "\n",
+    "\n",
+    "class Car(Vehicle):\n",
+    "    def drive(self):\n",
+    "        return \"Driving a car\"\n",
+    "\n",
+    "\n",
+    "class Bicycle(Vehicle):\n",
+    "    def drive(self):\n",
+    "        return \"Riding a bicycle\"\n",
+    "\n",
+    "\n",
+    "# Tests\n",
+    "v = Vehicle()\n",
+    "c = Car()\n",
+    "b = Bicycle()\n",
+    "\n",
+    "print(v.drive())\n",
+    "print(c.drive())\n",
+    "print(b.drive())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7a20c8b3-69d2-415c-aff4-1cd671f69beb",
+   "metadata": {},
+   "source": [
+    "### PROBLEM 2 ###"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "143b2ad6-1b46-438b-b3c1-d9b10e14a0a6",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "My name is Mehdi, I am 50 years old and I live at Tunis.\n",
+      "My name is Kenza, I am 19 years old, I study Computer Science and I live at Cergy.\n",
+      "My name is Yassine, I am 30 years old, I work at Google and I live at New York.\n"
+     ]
+    }
+   ],
+   "source": [
+    "class Person:\n",
+    "    def __init__(self, name, age, address):\n",
+    "        self.name = name\n",
+    "        self.age = age\n",
+    "        self.address = address\n",
+    "\n",
+    "    def introduce(self):\n",
+    "        return f\"My name is {self.name}, I am {self.age} years old and I live at {self.address}.\"\n",
+    "\n",
+    "\n",
+    "class Student(Person):\n",
+    "    def __init__(self, name, age, address, field_of_study):\n",
+    "        super().__init__(name, age, address)\n",
+    "        self.field_of_study = field_of_study\n",
+    "\n",
+    "    def introduce(self):\n",
+    "        return (\n",
+    "            f\"My name is {self.name}, I am {self.age} years old, \"\n",
+    "            f\"I study {self.field_of_study} and I live at {self.address}.\"\n",
+    "        )\n",
+    "\n",
+    "\n",
+    "class Employee(Person):\n",
+    "    def __init__(self, name, age, address, company):\n",
+    "        super().__init__(name, age, address)\n",
+    "        self.company = company\n",
+    "\n",
+    "    def introduce(self):\n",
+    "        return (\n",
+    "            f\"My name is {self.name}, I am {self.age} years old, \"\n",
+    "            f\"I work at {self.company} and I live at {self.address}.\"\n",
+    "        )\n",
+    "\n",
+    "\n",
+    "# Tests \n",
+    "p = Person(\"Mehdi\", 50, \"Tunis\")\n",
+    "s = Student(\"Kenza\", 19, \"Cergy\", \"Computer Science\")\n",
+    "e = Employee(\"Yassine\", 30, \"New York\", \"Google\")\n",
+    "\n",
+    "print(p.introduce())\n",
+    "print(s.introduce())\n",
+    "print(e.introduce())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6712deed-e19b-422f-8539-6cfe2f825870",
+   "metadata": {},
+   "source": [
+    "### PROBLEM 3 ###"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "6a6f1c13-e86b-4527-91fc-96498bdef601",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Balances before operations:\n",
+      "acc1 = 400.0 | acc2 = 1197.0\n",
+      "Balances after transfer:\n",
+      "acc1 = 100.0 | acc2 = 1497.0\n",
+      "acc2 after interest = 1571.85\n"
+     ]
+    }
+   ],
+   "source": [
+    "class BankAccount:\n",
+    "    def __init__(self, account_number, balance=0.0):\n",
+    "        self.account_number = account_number\n",
+    "        self.balance = float(balance)\n",
+    "\n",
+    "    def deposit(self, amount):\n",
+    "        if amount > 0:\n",
+    "            self.balance += amount\n",
+    "\n",
+    "    def withdraw(self, amount):\n",
+    "        if amount <= self.balance:\n",
+    "            self.balance -= amount\n",
+    "            return True\n",
+    "        return False\n",
+    "\n",
+    "    def transfer(self, amount, destination_account):\n",
+    "        if self.withdraw(amount):\n",
+    "            destination_account.deposit(amount)\n",
+    "            return True\n",
+    "        return False\n",
+    "\n",
+    "\n",
+    "class SavingsAccount(BankAccount):\n",
+    "    def __init__(self, account_number, balance=0.0, interest_rate=0.0):\n",
+    "        super().__init__(account_number, balance)\n",
+    "        self.interest_rate = float(interest_rate)\n",
+    "\n",
+    "    def add_interest(self):\n",
+    "        self.balance += self.balance * self.interest_rate\n",
+    "\n",
+    "    def check_balance(self):\n",
+    "        return self.balance\n",
+    "\n",
+    "# Tests\n",
+    "print(\"Balances before operations:\")\n",
+    "print(\"acc1 =\", acc1.balance, \"| acc2 =\", acc2.balance)\n",
+    "\n",
+    "acc1.transfer(300, acc2)\n",
+    "\n",
+    "print(\"Balances after transfer:\")\n",
+    "print(\"acc1 =\", acc1.balance, \"| acc2 =\", acc2.balance)\n",
+    "\n",
+    "acc2.add_interest()\n",
+    "print(\"acc2 after interest =\", acc2.check_balance())\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
